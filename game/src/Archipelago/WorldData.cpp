@@ -1,5 +1,6 @@
 #include "WorldData.h"
 
+#include <cstring> // for memcpy
 
 static const int CHUNK_TO_ALL_LEVELS_MAP[] = { 0, 2, 3, 1, 5, 6, 4, 7 };
 

@@ -216,7 +216,7 @@ bool Cart::cpu_write(uint16_t addr, uint8_t data)
     if (m_mapper->map_cpu_write(addr, &mapped_addr, data))
     {
         // PRG_RAM
-        __debugbreak();
+        // __debugbreak();
     }
 
     return false;

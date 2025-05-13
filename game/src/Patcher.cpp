@@ -1,5 +1,7 @@
 #include "Patcher.h"
 
+#include <cstring> // for memcpy
+
 #include <onut/Dialogs.h>
 #include <onut/Images.h>
 #include <onut/onut.h>
