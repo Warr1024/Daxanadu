@@ -409,11 +409,30 @@ int APTracker::owns(int in_item_id) const
             }
             return 0;
 
+        // Spring Elixir (inventory or quest used)
+        case AP_ITEM_SPRING_ELIXIR:
+        {
+            // Quest flag (spring already activated)
+            if (m_ram->get(0x042D) & 0x01) return 1;
+            // Inventory
+            for (int i = 0, len = (int)ram[0x03C6]; i < len; ++i)
+            {
+                auto item_id = ram[0x03AD + i] | 0x80;
+                if (item_id == 0xFF || item_id == 0x00) continue;
+                if (item_id == in_item_id) return 1;
+            }
+            // Equipped
+            {
+                auto item_id = ram[0x03C1] | 0x80;
+                if (item_id != 0xFF && item_id != 0x00 && item_id == in_item_id) return 1;
+            }
+            return 0;
+        }
+
         // Extra and rings
         case 0x94: return ram[0x042C] & 0x01; // Black Onyx
         case 0x93: return ram[0x042C] & 0x02; // Pendant
         case 0x8A: return ram[0x042C] & 0x04; // Magical Rod
-        case AP_ITEM_SPRING_ELIXIR: return m_ram->get(0x042D) & 0x01;
         case 0x83: return ram[0x042C] & 0x10; // Demons Ring
         case 0x82: return ram[0x042C] & 0x20; // Ring of Dworf
         case 0x81: return ram[0x042C] & 0x40; // Ring of Ruby
